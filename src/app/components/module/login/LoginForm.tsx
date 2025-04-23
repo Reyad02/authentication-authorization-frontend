@@ -1,23 +1,22 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { registrationSchema } from "./RegisterValidation";
 import { Button, TextField } from "@mui/material";
-import { registerUser } from "@/services/authServices";
 import { toast } from "sonner";
+import { loginSchema } from "./LoginValidation";
+import { loginUser } from "@/services/authServices";
 
-const RegisterForm = () => {
+const LoginForm = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors, isSubmitting },
   } = useForm({
-    resolver: zodResolver(registrationSchema),
+    resolver: zodResolver(loginSchema),
   });
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-      const res = await registerUser(data);
+      const res = await loginUser(data);
       if (res?.success) {
         toast.success(res?.message);
       } else {
@@ -28,22 +27,10 @@ const RegisterForm = () => {
     }
   };
 
-  const password = watch("password");
-  const passwordConfirm = watch("passwordConfirm");
   return (
-    <div className=" max-w-xl w-full p-8 shadow-2xl">
+    <div className=" max-w-xl w-full p-8 shadow-2xl ">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-4">
-          <TextField
-            required
-            id="outlined-required"
-            label="Name"
-            {...register("name")}
-          />
-          {errors.name && (
-            <span className="text-red-600">{errors.name?.message}</span>
-          )}
-
           <TextField
             required
             id="outlined-required"
@@ -64,21 +51,10 @@ const RegisterForm = () => {
           {errors.password && (
             <span className="text-red-600">{errors.password?.message}</span>
           )}
-
-          <TextField
-            type="password"
-            required
-            id="outlined-required"
-            label="Confirm Password"
-            {...register("passwordConfirm")}
-          />
-          {passwordConfirm && password !== passwordConfirm && (
-            <span className="text-red-600">Password does not match</span>
-          )}
         </div>
         <div className="flex justify-center mt-4">
           <Button type="submit" variant="contained">
-            {isSubmitting? "Registering..." : "Register"}
+            {isSubmitting ? "Logging..." : "Login"}
           </Button>
         </div>
       </form>
@@ -86,4 +62,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default LoginForm;

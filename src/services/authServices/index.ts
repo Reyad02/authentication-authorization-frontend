@@ -25,3 +25,27 @@ export const registerUser = async (userInfo: FieldValues) => {
     return Error(error);
   }
 };
+
+export const loginUser = async (userInfo: FieldValues) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/auth/login`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userInfo),
+      }
+    );
+
+    const result = await res.json();
+
+    if (result.success) {
+      (await cookies()).set("accessToken", result.data);
+    }
+    return result;
+  } catch (error: any) {
+    return Error(error);
+  }
+};
