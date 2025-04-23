@@ -5,8 +5,12 @@ import { Button, TextField } from "@mui/material";
 import { toast } from "sonner";
 import { loginSchema } from "./LoginValidation";
 import { loginUser } from "@/services/authServices";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const LoginForm = () => {
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirectPath");
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -19,6 +23,11 @@ const LoginForm = () => {
       const res = await loginUser(data);
       if (res?.success) {
         toast.success(res?.message);
+        if (redirect) {
+          router.push(redirect);
+        } else {
+          router.push("/");
+        }
       } else {
         toast.error(res?.message);
       }
