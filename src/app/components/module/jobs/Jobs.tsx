@@ -20,11 +20,10 @@ const JobsComponent = () => {
 
   const fetchJobs = async () => {
     const response = await getAllJobs();
-    setData(response.data);
+    setData(response?.data);
     const uniqueCategories: string[] = [];
-    response.data.forEach((element: any) => {
+    response?.data.forEach((element: IJob) => {
       if (!uniqueCategories.includes(element?.department)) {
-        console.log(element?.department);
         uniqueCategories.push(element?.department);
       }
     });

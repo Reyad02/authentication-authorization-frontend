@@ -1,7 +1,7 @@
 import { getCurrentUser } from "@/services/authServices";
 import { NextRequest, NextResponse } from "next/server";
 
-const authRoutes = ["/login"];
+const authRoutes = ["/login","/register",];
 
 export const middleware = async (request: NextRequest) => {
   const { pathname } = request.nextUrl;
@@ -25,7 +25,8 @@ export const middleware = async (request: NextRequest) => {
 
 export const config = {
     matcher: [
-      "/register",
-      "/"
+      "/create-jobs",
+      "/",
+      "/:jobId"
     ],
   };

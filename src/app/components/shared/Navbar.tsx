@@ -1,13 +1,15 @@
 "use client";
 import { protectedRoutes } from "@/app/constant";
 import { logout } from "@/services/authServices";
+import { getToken } from "@/services/jobsServices";
 import KeyboardCommandKeyIcon from "@mui/icons-material/KeyboardCommandKey";
 import { Avatar, Menu, MenuItem } from "@mui/material";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
+  const [loggedInUser, setLoggedInUser] = useState<boolean>(false);
   const pathname = usePathname();
   const router = useRouter();
 
@@ -15,13 +17,32 @@ const Navbar = () => {
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+
+  const handleLogout = () => {
     logout();
     setAnchorEl(null);
+
     if (protectedRoutes.some((route) => pathname.match(route))) {
-      router.push("/");
+      const redirectPath = encodeURIComponent(pathname);
+      router.push(`/login?redirectPath=${redirectPath}`);
     }
   };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  useEffect(() => {
+    const getLoggedInUser = async () => {
+      const getUser = await getToken();
+      if (getUser) {
+        setLoggedInUser(true);
+      } else {
+        setLoggedInUser(false);
+      }
+    };
+
+    getLoggedInUser();
+  }, [pathname]);
   return (
     <div className="bg-[#182F59] text-white px-4 py-2 flex justify-between items-center">
       <div className="flex items-center gap-2">
@@ -31,20 +52,31 @@ const Navbar = () => {
           <p className="text-sm">Shaping Tomorrows Cybersecurity</p>
         </div>
       </div>
-      <div>
-        <Avatar src="/broken-image.jpg" onClick={handleClick} />
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
-          }}
-        >
-          <MenuItem onClick={handleClose}>Logout</MenuItem>
-        </Menu>
-      </div>
+      {loggedInUser ? (
+        <div>
+          <Avatar src="/broken-image.jpg" onClick={handleClick} />
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+          >
+            <MenuItem onClick={handleClose}>
+              <Link href={"/"}>Available Jobs</Link>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              {" "}
+              <Link href={"/create-jobs"}>Create Job</Link>
+            </MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          </Menu>
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

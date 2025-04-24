@@ -1,1 +1,1 @@
-export const protectedRoutes = ["/register", "/"];
+export const protectedRoutes = ["/create-jobs", "/", "/:jobId"];

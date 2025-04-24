@@ -14,29 +14,29 @@ const JobDetails = async ({
       <Card className="shadow-md">
         <CardContent className="space-y-4">
           <Typography variant="h5" component="h2" fontWeight="bold">
-            {data.designation}
+            {data?.designation}
           </Typography>
 
           <div className="flex justify-between text-gray-600 text-sm">
             <span>
-              Posted on: {new Date(data.createdAt).toLocaleDateString()}
+              Posted on: {new Date(data?.createdAt).toLocaleDateString()}
             </span>
-            <span>Job Type: {data.jobType}</span>
+            <span>Job Type: {data?.jobType}</span>
           </div>
 
           <Typography variant="body1" className="text-gray-700">
-            <strong>Department:</strong> {data.department}
+            <strong>Department:</strong> {data?.department}
           </Typography>
 
           <Typography variant="body1" className="text-gray-700">
-            <strong>Salary:</strong> ৳{data.salary.toLocaleString()}
+            <strong>Salary:</strong> ৳{data?.salary.toLocaleString()}
           </Typography>
 
           <Typography
             variant="body1"
             className="text-gray-700 whitespace-pre-line"
           >
-            <strong>Description:</strong> {data.description}
+            <strong>Description:</strong> {data?.description}
           </Typography>
         </CardContent>
       </Card>
