@@ -32,7 +32,7 @@ export default function RootLayout({
       >
         {" "}
         <Navbar/>
-        <Toaster />
+        <Toaster richColors  position="top-center"/>
         <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
       </body>
     </html>
