@@ -1,8 +1,33 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+### 1. Clone the Repository
 
-First, run the development server:
+```bash
+git clone https://github.com/Reyad02/authentication-authorization-frontend.git
+cd authentication-authorization-frontend
+```
+
+### 2. Install Dependencies
+Using your preferred package manager:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
+### 3. Set Up Environment Variables
+Create a ```.env``` file in the root of your project and add the following:
+
+```env
+NEXT_PUBLIC_BASE_API=your-backend-api/api/v1
+```
+
+### 4. Run the Development Server
 
 ```bash
 npm run dev
@@ -15,8 +40,6 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
