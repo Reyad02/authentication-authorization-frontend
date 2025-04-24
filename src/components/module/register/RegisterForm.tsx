@@ -5,6 +5,8 @@ import { registrationSchema } from "./RegisterValidation";
 import { Button, TextField } from "@mui/material";
 import { registerUser } from "@/services/authServices";
 import { toast } from "sonner";
+import Link from "next/link";
+import { customButtonStyle } from "@/styles/styles";
 
 const RegisterForm = () => {
   const {
@@ -32,6 +34,12 @@ const RegisterForm = () => {
   const passwordConfirm = watch("passwordConfirm");
   return (
     <div className=" max-w-xl w-full p-8 shadow-2xl">
+      <div className="mb-4">
+        <h1 className="text-center font-semibold text-xl uppercase">
+          Sign Up{" "}
+        </h1>
+        <p className="text-center">Register to apply for a job</p>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-4">
           <TextField
@@ -77,10 +85,16 @@ const RegisterForm = () => {
           )}
         </div>
         <div className="flex justify-center mt-4">
-          <Button type="submit" variant="contained">
-            {isSubmitting? "Registering..." : "Register"}
+          <Button type="submit" variant="outlined" sx={customButtonStyle()}>
+            {isSubmitting ? "Registering..." : "Register"}
           </Button>
         </div>
+        <p className="text-center mt-4">
+          If you already have an account then{" "}
+          <Link className="text-[#1565C0]" href={"/login"}>
+            login
+          </Link>
+        </p>
       </form>
     </div>
   );

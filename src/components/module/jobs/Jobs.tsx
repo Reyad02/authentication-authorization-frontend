@@ -12,10 +12,11 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import Link from "next/link";
 import { toast } from "sonner";
 import { IJob } from "@/types/jobs";
+import { customButtonStyle } from "@/styles/styles";
 
 const JobsComponent = () => {
-  const [data, setData] = useState<IJob[]|null>(null);
-  const [category, setCategory] = useState<string[]|null>(null);
+  const [data, setData] = useState<IJob[] | null>(null);
+  const [category, setCategory] = useState<string[] | null>(null);
   const [expanded, setExpanded] = useState<string | false>(false);
 
   const fetchJobs = async () => {
@@ -41,7 +42,6 @@ const JobsComponent = () => {
 
   const deleteJob = async (jobId: string) => {
     const res = await deleteSingleJob({ jobId });
-    console.log(res);
     if (res?.success) {
       toast.success(res?.message);
       fetchJobs();
@@ -58,10 +58,12 @@ const JobsComponent = () => {
           className="bg-[#F5F5F5] mt-4 rounded-4xl"
           expanded={expanded === `panel${idx}`}
           onChange={handleChange(`panel${idx}`)}
-          //   sx={{
-          //     backgroundColor: "#F5F5F5",
-          //     borderRadius: "1rem",
-          //   }}
+          sx={{
+            backgroundColor: "#F5F5F5",
+            borderColor: "#BCBCBC",
+            border: "1px",
+            borderStyle: "solid",
+          }}
         >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -69,7 +71,7 @@ const JobsComponent = () => {
             id="panel1bh-header"
           >
             <Typography component="span" sx={{ width: "33%", flexShrink: 0 }}>
-              {cat}
+              <p className="text-[#626262] font-semibold text-xl">{cat}</p>
             </Typography>
           </AccordionSummary>
           <AccordionDetails className="flex flex-col">
@@ -89,6 +91,7 @@ const JobsComponent = () => {
                         variant="outlined"
                         size="small"
                         startIcon={<VisibilityIcon />}
+                        sx={customButtonStyle()}
                       >
                         View
                       </Button>
@@ -98,6 +101,7 @@ const JobsComponent = () => {
                       variant="outlined"
                       size="small"
                       startIcon={<DeleteIcon />}
+                      sx={customButtonStyle()}
                       onClick={() => {
                         const toastId = toast(
                           <div className="p-4 bg-white rounded shadow flex flex-col gap-3">

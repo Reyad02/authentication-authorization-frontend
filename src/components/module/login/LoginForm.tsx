@@ -6,6 +6,8 @@ import { toast } from "sonner";
 import { loginSchema } from "./LoginValidation";
 import { loginUser } from "@/services/authServices";
 import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { customButtonStyle } from "@/styles/styles";
 
 const LoginForm = () => {
   const searchParams = useSearchParams();
@@ -38,6 +40,10 @@ const LoginForm = () => {
 
   return (
     <div className=" max-w-xl w-full p-8 shadow-2xl ">
+      <div className="mb-4">
+        <h1 className="text-center font-semibold text-xl uppercase">Sign In </h1>
+        <p className="text-center">Sign in to apply for a job</p>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-4">
           <TextField
@@ -62,10 +68,16 @@ const LoginForm = () => {
           )}
         </div>
         <div className="flex justify-center mt-4">
-          <Button type="submit" variant="contained">
+          <Button sx={customButtonStyle()} type="submit" variant="outlined">
             {isSubmitting ? "Logging..." : "Login"}
           </Button>
         </div>
+        <p className="text-center mt-4">
+          If you do not have an account then{" "}
+          <Link className="text-[#1565C0]" href={"/register"}>
+            register
+          </Link>
+        </p>
       </form>
     </div>
   );

@@ -1,5 +1,5 @@
 "use client";
-import { protectedRoutes } from "@/app/constant";
+import { protectedRoutes } from "@/constant";
 import { logout } from "@/services/authServices";
 import { getToken } from "@/services/jobsServices";
 import KeyboardCommandKeyIcon from "@mui/icons-material/KeyboardCommandKey";
@@ -44,17 +44,17 @@ const Navbar = () => {
     getLoggedInUser();
   }, [pathname]);
   return (
-    <div className="bg-[#182F59] text-white px-4 py-2 flex justify-between items-center">
+    <div className="bg-[#182F59] text-white px-4 py-4 flex justify-between items-center">
       <div className="flex items-center gap-2">
         <KeyboardCommandKeyIcon fontSize="large" />
         <div>
-          <h1 className="text-lg font-semibold">TechForing</h1>
+          <h1 className="text-xl font-semibold">TechForing</h1>
           <p className="text-sm">Shaping Tomorrows Cybersecurity</p>
         </div>
       </div>
       {loggedInUser ? (
         <div>
-          <Avatar src="/broken-image.jpg" onClick={handleClick} />
+          <Avatar src="https://sm.ign.com/ign_pk/cover/a/avatar-gen/avatar-generations_rpge.jpg" onClick={handleClick} />
           <Menu
             id="basic-menu"
             anchorEl={anchorEl}

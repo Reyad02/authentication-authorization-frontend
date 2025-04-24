@@ -27,19 +27,24 @@ export const getAllJobs = async () => {
   }
 };
 
-export const getSingleJob = async ({ jobId }: { jobId: string }) => {
+export const createJob = async (jobInfo: FieldValues) => {
   try {
     const token = await getToken();
     if (token) {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_API}/jobs/${jobId}`,
+        `${process.env.NEXT_PUBLIC_BASE_API}/jobs/create-job`,
         {
+          method: "POST",
+          body: JSON.stringify(jobInfo),
           headers: {
+            "Content-Type": "application/json",
             Authorization: token,
           },
         }
       );
-      return res.json();
+
+      const result = await res.json();
+      return result;
     }
   } catch (error: any) {
     return Error(error);
@@ -67,24 +72,19 @@ export const deleteSingleJob = async ({ jobId }: { jobId: string }) => {
   }
 };
 
-export const createJob = async (jobInfo: FieldValues) => {
+export const getSingleJob = async ({ jobId }: { jobId: string }) => {
   try {
     const token = await getToken();
     if (token) {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_API}/jobs/create-job`,
+        `${process.env.NEXT_PUBLIC_BASE_API}/jobs/${jobId}`,
         {
-          method: "POST",
-          body: JSON.stringify(jobInfo),
           headers: {
-            "Content-Type": "application/json",
             Authorization: token,
           },
         }
       );
-
-      const result = await res.json();
-      return result;
+      return res.json();
     }
   } catch (error: any) {
     return Error(error);
