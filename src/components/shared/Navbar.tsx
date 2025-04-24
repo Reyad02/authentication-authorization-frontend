@@ -54,7 +54,7 @@ const Navbar = () => {
       </div>
       {loggedInUser ? (
         <div>
-          <Avatar src="https://sm.ign.com/ign_pk/cover/a/avatar-gen/avatar-generations_rpge.jpg" onClick={handleClick} />
+          <Avatar src="https://i.postimg.cc/Znwc82Yr/avatar-generations-rpge.jpg" onClick={handleClick} />
           <Menu
             id="basic-menu"
             anchorEl={anchorEl}

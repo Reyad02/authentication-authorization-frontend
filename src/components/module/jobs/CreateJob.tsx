@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import Button from "@mui/material/Button";
 import { InputLabel, MenuItem, Select } from "@mui/material";
 import { createJob } from "@/services/jobsServices";
+import { customButtonStyle } from "@/styles/styles";
 
 const CreateJob = () => {
   const {
@@ -30,11 +31,16 @@ const CreateJob = () => {
     } catch (error: any) {
       console.log(error);
     }
-
   };
 
   return (
     <div className=" max-w-xl w-full p-8 shadow-2xl">
+      <div className="mb-4">
+        <h1 className="text-center font-semibold text-xl uppercase">
+          Publish Jobs{" "}
+        </h1>
+        <p className="text-center">Recruit New Bee</p>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-4">
           <TextField
@@ -103,7 +109,7 @@ const CreateJob = () => {
           ></Controller>
         </div>
         <div className="flex justify-center mt-4">
-          <Button type="submit" variant="contained">
+          <Button type="submit" variant="outlined" sx={customButtonStyle()}>
             {isSubmitting ? "Creating..." : "Create"}
           </Button>
         </div>

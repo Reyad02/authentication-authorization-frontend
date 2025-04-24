@@ -7,6 +7,7 @@ const JobDetails = async ({
   params: Promise<{ jobId: string }>;
 }) => {
   const { jobId } = await params;
+  
   const { data } = await getSingleJob({ jobId });
 
   return (
